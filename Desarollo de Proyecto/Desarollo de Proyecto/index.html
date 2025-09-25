@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Burbujas rebotando (Canvas)</title>
+<style>
+
+.hero-section {
+    display: flex;
+    flex-direction: column;   
+    justify-content: center;  
+    gap: 40px;             
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    height: 400px;
+    width: 100%;
+}
+
+.container li{
+    position: relative;
+    overflow: hidden;
+    flex: 0 0 210px;
+    border-radius: 50px;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 1.2px solid #eee;
+    box-shadow: 5px 10px 15px rgba(0, 0, 0, 0.4),
+    -2px -5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.container li img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.container li,
+.container li img{
+    transition: 0.3s;
+}
+
+.container li .content{
+    transition: 1.5s ease;
+}
+
+.container span{
+    text-align: center;
+    width: 75%;
+}
+
+.container h2{
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 4px;
+    margin-bottom: 3px;
+    white-space: nowrap;
+    color: #eee;
+}
+
+.container p{
+    color: #ddd;
+    font-size: 10px;
+    width: 100%;
+}
+
+.container li .content{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    color: #fff;
+    padding: 15px;
+    background: 
+    linear-gradient(
+        0deg, rgb(0 0 0 / 70%) 10%,
+        rgb(255 255 255 / 0%) 100%
+    );
+    opacity: 0;
+    visibility: hidden;
+}
+
+.container:hover{
+    gap: 1;
+}
+
+.container li .content span{
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    bottom: 0px;
+    translate: -50%;
+    scale: 0.85;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.container li:hover{
+    flex: 0.7 1 260px;
+    scale: 1.1;
+    z-index: 10;
+    opacity: 1;
+}
+
+.container img {
+    position: relative;
+    z-index: 1;
+}
+
+.container li:hover .content{
+    opacity: 1;
+    visibility: visible;
+}
+
+.container li:hover span{
+    scale: 1;
+    opacity: 1;
+    visibility: visible;
+}
+
+.btn.box {
+    background-color: #ffffffd8;
+    border-radius: 50px;
+    border-color: transparent;
+    width: 800px;
+    height: 200px;
+    cursor: pointer;
+    box-shadow: 10px 7px 5px rgba(0, 0, 0, 0.2);
+}
+
+.wrapper {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flower {
+  display: grid;
+  grid-template-columns: 3em 3em; /* Flores más grandes */
+  position: absolute;
+  transition: grid-template-columns 0.8s ease;
+}
+
+.flower1 { top: -15px; left: -15px; transform: rotate(5deg);}
+.flower2 { bottom: -10px; left: 5px; transform: rotate(35deg);}
+.flower5 { right: 5px; top: -10px; transform: rotate(25deg);}
+.flower6 { right: -15px; bottom: -15px; transform: rotate(30deg); }
+
+.petal {
+  height: 3em;   /* pétalos más grandes */
+  width: 3em;
+  border-radius: 40% 70% / 7% 90%;
+  background: linear-gradient(#07a6d7, #93e0ee);
+  border: 0.5px solid #96d1ec;
+  z-index: 0;
+  transition: width 0.8s ease, height 0.8s ease;
+}
+
+.two { transform: rotate(90deg); }
+.three { transform: rotate(270deg); }
+.four { transform: rotate(180deg); }
+
+.btn.box:hover .petal {
+  background: linear-gradient(#0761d7, #93bdee);
+  border: 0.5px solid #96b4ec;
+}
+
+.btn.box:hover .flower { grid-template-columns: 3.5em 3.5em; }
+.btn.box:hover .flower .petal { width: 3.5em; height: 3.5em; }
+
+
+@keyframes flower1 { 0%{transform: rotate(5deg);} 100%{transform: rotate(365deg);} }
+@keyframes flower2 { 0%{transform: rotate(35deg);} 100%{transform: rotate(-325deg);} }
+@keyframes flower5 { 0%{transform: rotate(25deg);} 100%{transform: rotate(-335deg);} }
+@keyframes flower6 { 0%{transform: rotate(30deg);} 100%{transform: rotate(390deg);} }
+
+.btn.box .flower1 { animation: 15s linear infinite flower1; }
+.btn.box .flower2 { animation: 13s linear 1s infinite flower2; }
+.btn.box .flower5 { animation: 20s linear 1s infinite flower5; }
+.btn.box .flower6 { animation: 15s linear 1s infinite flower6; }
+
+.text {
+    width: 100%;
+    font-size: 8rem;
+    font-weight: bold;
+    font-style: italic;
+    color: transparent;
+    background-image: url('https://images.unsplash.com/photo-1732535725600-f805d8b33c9c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); 
+    background-size: 200%;
+    background-position: 0 50%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: animate-background 5s infinite alternate linear;
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+}
+
+@keyframes animate-background {
+    0% {
+        background-position: 0 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+
+/* Tablets */
+@media (max-width: 992px) {
+  .hero-section {
+    padding: 1.5rem;
+  }
+  .hero-section .btn.box {
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Móviles */
+@media (max-width: 600px) {
+  .hero-section {
+    padding: 1rem;
+  }
+
+  .hero-section .text {
+    font-size: 1.5rem;
+  }
+
+  .hero-section .container {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-section .content {
+    padding: 0.8rem;
+  }
+}
+
+  html,body{height:100%;margin:0}
+  body{
+    background: linear-gradient(180deg,#8800ff1c,#8800ff29);
+    overflow:hidden;
+    font-family: sans-serif;
+    color: #fff;
+  }
+  canvas {
+    position: fixed;
+    inset: 0;
+    z-index: -1;        /* fondo */
+    pointer-events: none;
+    display:block;
+  }
+  main{padding:2rem}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+
+<main>
+<div class="hero-section">
+<center>
+  <button class="btn box">
+    <div class="wrapper">
+      <p class="text">L O O P</p>
+
+      <div class="flower flower1">
+        <div class="petal one"></div>
+        <div class="petal two"></div>
+        <div class="petal three"></div>
+        <div class="petal four"></div>
+      </div>
+      <div class="flower flower2">
+        <div class="petal one"></div>
+        <div class="petal two"></div>
+        <div class="petal three"></div>
+        <div class="petal four"></div>
+      </div>
+
+      <div class="flower flower5">
+        <div class="petal one"></div>
+        <div class="petal two"></div>
+        <div class="petal three"></div>
+        <div class="petal four"></div>
+      </div>
+      <div class="flower flower6">
+        <div class="petal one"></div>
+        <div class="petal two"></div>
+        <div class="petal three"></div>
+        <div class="petal four"></div>
+      </div>
+    </div>
+  </button>
+</center>
+
+
+  <ul class="container">
+      <li>
+            <img src="../img/1.png" alt="">
+            <div class="content">
+                <span>
+                    <h2>Hola</h2>
+                    <p>esto es fantastic xdddddd
+                        xdddddddddd
+                        xdddddddddddx
+                        xdddddddddddxxd
+                        xxxxxxddddddddddd
+                        loooooooooool
+                    </p>
+                </span>
+            </div>
+        </li>
+
+        <li>
+            <img src="../img/2.jpg" alt="">
+            <div class="content">
+                <span>
+                    <h2>Hola</h2>
+                    <p>esto es fantastic xdddddd
+                        xdddddddddd
+                        xdddddddddddx
+                        xdddddddddddxxd
+                        xxxxxxddddddddddd
+                        loooooooooool
+                    </p>
+                </span>
+            </div>
+        </li>
+
+        <li>
+            <img src="../img/3.jpg" alt="">
+            <div class="content">
+                <span>
+                    <h2>Hola</h2>
+                    <p>esto es fantastic xdddddd
+                        xdddddddddd
+                        xdddddddddddx
+                        xdddddddddddxxd
+                        xxxxxxddddddddddd
+                        loooooooooool
+                    </p>
+                </span>
+            </div>
+        </li>
+
+        <li>
+            <img src="../img/4.png" alt="">
+            <div class="content">
+                <span>
+                    <h2>Hola</h2>
+                    <p>esto es fantastic xdddddd
+                        xdddddddddd
+                        xdddddddddddx
+                        xdddddddddddxxd
+                        xxxxxxddddddddddd
+                        loooooooooool
+                    </p>
+                </span>
+            </div>
+        </li>
+  </ul>
+</div>
+</main>
+
+<script>
+(() => {
+  const canvas = document.getElementById('bg');
+  const ctx = canvas.getContext('2d');
+
+  function resize() {
+    const dpr = Math.max(1, window.devicePixelRatio || 1);
+    canvas.width = Math.round(innerWidth * dpr);
+    canvas.height = Math.round(innerHeight * dpr);
+    canvas.style.width = innerWidth + 'px';
+    canvas.style.height = innerHeight + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  addEventListener('resize', resize);
+  resize();
+
+  // cantidad fija reducida
+  const N = 15;  
+  const colors = [
+    'rgba(119, 0, 255, 0.53)',
+    'rgba(46, 0, 79, 0.12)',
+    'rgba(255,230,180,0.08)',
+    'rgba(190,240,220,0.10)'
+  ];
+
+  class Bubble {
+    constructor() {
+      this.r = 10 + Math.random()*30; 
+      this.x = Math.random() * (innerWidth - 2*this.r) + this.r;
+      this.y = Math.random() * (innerHeight - 2*this.r) + this.r;
+      const speed = 0.3 + Math.random()*2;
+      const angle = Math.random() * Math.PI * 2;
+      this.vx = Math.cos(angle) * speed;
+      this.vy = Math.sin(angle) * speed;
+      this.color = colors[Math.floor(Math.random()*colors.length)];
+    }
+    update(dt) {
+      this.x += this.vx * dt;
+      this.y += this.vy * dt;
+
+      if (this.x - this.r < 0 || this.x + this.r > innerWidth) this.vx *= -1;
+      if (this.y - this.r < 0 || this.y + this.r > innerHeight) this.vy *= -1;
+    }
+    draw(ctx){
+      ctx.beginPath();
+      ctx.fillStyle = this.color;
+      ctx.globalAlpha = 0.8;
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+      ctx.fill();
+
+      // highlight
+      ctx.beginPath();
+      ctx.globalAlpha = 0.4;
+      ctx.arc(this.x - this.r*0.35, this.y - this.r*0.35, this.r*0.3, 0, Math.PI*2);
+      ctx.fillStyle = 'white';
+      ctx.fill();
+
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  let bubbles = [];
+  for (let i=0;i<N;i++) bubbles.push(new Bubble());
+
+  let last = performance.now();
+  function frame(t) {
+    const dt = Math.min(60, t - last);
+    last = t;
+    ctx.clearRect(0,0,innerWidth,innerHeight);
+
+    for (let b of bubbles) {
+      b.update(dt * 0.06);
+      b.draw(ctx);
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
