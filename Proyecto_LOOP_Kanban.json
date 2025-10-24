@@ -1,0 +1,170 @@
+{
+    "name": "Proyecto LOOP - Kanban",
+    "description": "Tablero Scrum del proyecto LOOP. Gestionado por Sofía Valeria Ávila Medina (Scrum Master).",
+    "columns": [
+        {
+            "name": "📋 To Do",
+            "cards": [
+                {
+                    "title": "Crear tablero Kanban en GitHub",
+                    "assignee": "Sofía",
+                    "labels": [
+                        "gestión",
+                        "setup"
+                    ],
+                    "sprint": "Sprint 1"
+                },
+                {
+                    "title": "Documentar requerimientos funcionales",
+                    "assignee": "Liz",
+                    "labels": [
+                        "análisis",
+                        "documentación"
+                    ],
+                    "sprint": "Sprint 1"
+                },
+                {
+                    "title": "Elaborar casos de uso",
+                    "assignee": "Liz",
+                    "labels": [
+                        "análisis",
+                        "diagramas"
+                    ],
+                    "sprint": "Sprint 1"
+                },
+                {
+                    "title": "Crear prototipo visual de la web",
+                    "assignee": "Moisés",
+                    "labels": [
+                        "UI",
+                        "diseño"
+                    ],
+                    "sprint": "Sprint 1"
+                },
+                {
+                    "title": "Crear estructura HTML/CSS",
+                    "assignee": "Yasser",
+                    "labels": [
+                        "frontend",
+                        "estructura"
+                    ],
+                    "sprint": "Sprint 2"
+                },
+                {
+                    "title": "Implementar navegación interna",
+                    "assignee": "Yasser",
+                    "labels": [
+                        "frontend",
+                        "JS"
+                    ],
+                    "sprint": "Sprint 2"
+                },
+                {
+                    "title": "Elaborar plan de pruebas",
+                    "assignee": "Yahir",
+                    "labels": [
+                        "QA",
+                        "testing"
+                    ],
+                    "sprint": "Sprint 2"
+                },
+                {
+                    "title": "Configurar autenticación básica",
+                    "assignee": "Yasser",
+                    "labels": [
+                        "backend",
+                        "seguridad"
+                    ],
+                    "sprint": "Sprint 3"
+                },
+                {
+                    "title": "Validar cumplimiento de normas",
+                    "assignee": "Sofía",
+                    "labels": [
+                        "verificación",
+                        "seguridad"
+                    ],
+                    "sprint": "Sprint 3"
+                }
+            ]
+        },
+        {
+            "name": "🚧 In Progress",
+            "cards": [
+                {
+                    "title": "Crear repositorio principal en GitHub",
+                    "assignee": "Sofía",
+                    "labels": [
+                        "setup",
+                        "repo"
+                    ],
+                    "sprint": "Sprint 1"
+                },
+                {
+                    "title": "Aplicar diseño responsivo",
+                    "assignee": "Moisés",
+                    "labels": [
+                        "responsive",
+                        "UI"
+                    ],
+                    "sprint": "Sprint 2"
+                },
+                {
+                    "title": "Ejecutar pruebas manuales y automatizadas",
+                    "assignee": "Yahir",
+                    "labels": [
+                        "QA",
+                        "bug"
+                    ],
+                    "sprint": "Sprint 3"
+                }
+            ]
+        },
+        {
+            "name": "✅ Done",
+            "cards": [
+                {
+                    "title": "Revisión de requerimientos",
+                    "assignee": "Equipo",
+                    "labels": [
+                        "scrum",
+                        "revisión"
+                    ],
+                    "sprint": "Sprint 1"
+                },
+                {
+                    "title": "Verificar commits y ramas",
+                    "assignee": "Sofía",
+                    "labels": [
+                        "control",
+                        "versión"
+                    ],
+                    "sprint": "Sprint 2"
+                },
+                {
+                    "title": "Revisión final y documentación",
+                    "assignee": "Equipo",
+                    "labels": [
+                        "entrega",
+                        "final"
+                    ],
+                    "sprint": "Sprint 3"
+                }
+            ]
+        }
+    ],
+    "milestones": [
+        {
+            "name": "Sprint 1 - Análisis y Diseño",
+            "status": "completed"
+        },
+        {
+            "name": "Sprint 2 - Desarrollo e Implementación",
+            "status": "in_progress"
+        },
+        {
+            "name": "Sprint 3 - Seguridad, Pruebas y Entrega",
+            "status": "pending"
+        }
+    ]
+}
